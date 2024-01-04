@@ -55,8 +55,13 @@ class PresensiController extends Controller
         $jamsekolah = DB::table('konfigurasi_jam')
         ->join('jam_sekolah','jam_sekolah.kode_jam_sekolah','=','konfigurasi_jam.kode_jam_sekolah')
         ->where('nisn',$nisn)->where('hari', $namahari)->first();
-        return view('presensi.create',compact('cek','lok_sekolah','jamsekolah'));
+        if($jamsekolah == null){
+            return view('presensi.notifjadwal');
+        } else{
+            return view('presensi.create',compact('cek','lok_sekolah','jamsekolah'));
+        }
     }
+
     public function store(Request $request)
     {
         $nisn = Auth::guard('datasiswa')->user()->nisn;
@@ -176,6 +181,9 @@ class PresensiController extends Controller
         $no_hp = $request -> no_hp;
         $password = Hash::make($request->password);
         $datasiswa = DB::table('datasiswa')->where('nisn', $nisn)->first();
+        $request -> validate([
+            'foto' => 'required|image|mimes:png,jpg|max:500'
+        ]);
         if($request ->hasFile('foto')){
             $foto = $nisn.".".$request->file('foto')->getClientOriginalExtension();
         }else{
@@ -206,7 +214,7 @@ class PresensiController extends Controller
             }
             return Redirect::back()->with(['success' => 'Data Berhasil Diupdate']);
         }else{
-            return Redirect::back()->with(['success'=>'Data Gagal di Diupdate']);
+            return Redirect::back()->with(['warning'=>'Data Gagal di Diupdate']);
         }
     }
 

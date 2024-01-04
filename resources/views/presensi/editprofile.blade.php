@@ -4,7 +4,7 @@
 <div class="appHeader bg-primary text-light">
     <div class="left">
         <a href="javascript::" class="headerButton goBack">
-        <ion-icon name="chevron-back-outline"></ion-icon> 
+        <ion-icon name="chevron-back-outline"></ion-icon>
         </a>
     </div>
     <div class="pageTitle">Edit Profile</div>
@@ -30,6 +30,12 @@
             {{ $messageerror }}
         </div>
     @endif
+
+    @error('foto')
+    <div class="alert alert-warning">
+        {{ $message }}
+    </div>
+    @enderror
 </div>
 </div>
 <form action="/presensi/{{$datasiswa -> nisn}}/updateprofile" method="POST" enctype="multipart/form-data" >
