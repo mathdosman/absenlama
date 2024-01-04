@@ -78,20 +78,20 @@
                     Laporan
                   </span>
                 </a>
-                <div class="dropdown-menu {{ request()-> is(['presensi/laporan','presensi/rekap']) ? 'show' : ''}}">
-                  <div class="dropdown-menu-columns">
-                    <div class="dropdown-menu-column">
-                      <a class="dropdown-item {{ request()-> is(['presensi/laporan']) ? 'active text-warning' : ''}}" href="/presensi/laporan">
-                        Absensi
-                      </a>
+                <!--<div class="dropdown-menu {{ request()-> is(['presensi/laporan','presensi/rekap']) ? 'show' : ''}}">-->
+                <!--  <div class="dropdown-menu-columns">-->
+                <!--    <div class="dropdown-menu-column">-->
+                <!--      <a class="dropdown-item {{ request()-> is(['presensi/laporan']) ? 'active text-warning' : ''}}" href="/presensi/laporan">-->
+                <!--        Absensi-->
+                <!--      </a>-->
 
-                      <a class="dropdown-item {{ request()-> is(['presensi/rekap']) ? 'active text-warning' : ''}}" href="/presensi/rekap">
-                        Rekap
-                      </a>
+                <!--      <a class="dropdown-item {{ request()-> is(['presensi/rekap']) ? 'active text-warning' : ''}}" href="/presensi/rekap">-->
+                <!--        Rekap-->
+                <!--      </a>-->
 
-                    </div>
-                  </div>
-                </div>
+                <!--    </div>-->
+                <!--  </div>-->
+                <!--</div>-->
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle {{ request()-> is(['konfigurasi/jamkelas','konfigurasi/lokasisekolah']) ? 'show ' : ''}}" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="{{ request()-> is(['konfigurasi/jamkelas','konfigurasi/lokasisekolah']) ? 'true' : 'false'}}" >

@@ -40,7 +40,7 @@
                                     <tr>
                                         <th>NISN</th>
                                         <td>:</td>
-                                        <td>00{{$siswa->nisn}}</td>
+                                        <td>{{$siswa->nisn}}</td>
                                     </tr>
                                     <tr>
                                         <th>Nama Lengkap</th>

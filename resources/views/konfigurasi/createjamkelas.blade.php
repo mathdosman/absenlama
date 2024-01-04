@@ -9,7 +9,7 @@
           SMA Negeri 1 Gianyar
           </div>
           <h2 class="page-title">
-          SET JAM SEKOLAH
+          SET JAM KELAS
           </h2>
       </div>
     </div>
@@ -24,7 +24,7 @@
                             <div class="row mt-2">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <select name="kode_kegiatan" id="kode_kegiatan" class="form-select">
+                                        <select name="kode_kegiatan" id="kode_kegiatan" class="form-select" required>
                                             <option value="">Pilih Sesi Kegiatan</option>
                                             @foreach ($sesi as $d)
                                                 <option value="{{$d->kode_kegiatan}}">{{$d->nama_kegiatan}}</option>
@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <select name="kode_kelas" id="kode_kelas" class="form-select">
+                                        <select name="kode_kelas" id="kode_kelas" class="form-select" required>
                                             <option value="">Pilih Kelas</option>
                                             @foreach ($kelas as $d)
                                                 <option value="{{$d->kode_kelas}}">{{$d->nama_kelas}}</option>

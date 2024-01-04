@@ -32,8 +32,8 @@
     @endif
 
     @error('foto')
-    <div class="alert alert-warning">
-        {{ $message }}
+    <div class="alert alert-danger">
+        <p>{{ $message }}</p>
     </div>
     @enderror
 </div>

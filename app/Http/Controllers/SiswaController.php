@@ -22,7 +22,7 @@ class SiswaController extends Controller
         if(!empty($request -> kode_kelas)){
             $query -> where('datasiswa.kode_kelas', $request ->kode_kelas);
         }
-        $siswa = $query -> paginate(25);
+        $siswa = $query -> paginate(60);
 
         $kelas=DB::table('tabelkelas')->get();
         $kegiatan =DB::table('kegiatan')->orderBy('kode_kegiatan')->get();

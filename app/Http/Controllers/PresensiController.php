@@ -49,19 +49,29 @@ class PresensiController extends Controller
         $hariini = date("Y-m-d");
         $namahari = $this ->gethari();
         $nisn = Auth::guard('datasiswa')->user()->nisn;
+        $kode_kelas = Auth::guard('datasiswa')->user()->kode_kelas;
         $cek = DB::table('presensi')->where('tgl_presensi', $hariini)->where('nisn', $nisn)->count();
         $kode_kegiatan = Auth::guard('datasiswa')->user()->kode_kegiatan;
         $lok_sekolah =DB::table('kegiatan')->where('kode_kegiatan',$kode_kegiatan)->first();
+
         $jamsekolah = DB::table('konfigurasi_jam')
-        ->join('jam_sekolah','jam_sekolah.kode_jam_sekolah','=','konfigurasi_jam.kode_jam_sekolah')
+        ->join('jam_sekolah','konfigurasi_jam.kode_jam_sekolah','=','jam_sekolah.kode_jam_sekolah')
         ->where('nisn',$nisn)->where('hari', $namahari)->first();
+
         if($jamsekolah == null){
+            $jamsekolah = DB::table('konfigurasi_jam_kelas_detail')
+            ->join('konfigurasi_jam_kelas','konfigurasi_jam_kelas_detail.kode_js_kelas','=','konfigurasi_jam_kelas.kode_js_kelas')
+            ->join('jam_sekolah','konfigurasi_jam_kelas_detail.kode_jam_sekolah','=','jam_sekolah.kode_jam_sekolah')
+            ->where('kode_kelas',$kode_kelas)
+            ->where('hari', $namahari)->first();
+        }
+
+        if($jamsekolah==null){
             return view('presensi.notifjadwal');
-        } else{
+        } else {
             return view('presensi.create',compact('cek','lok_sekolah','jamsekolah'));
         }
     }
-
     public function store(Request $request)
     {
         $nisn = Auth::guard('datasiswa')->user()->nisn;
@@ -272,7 +282,7 @@ class PresensiController extends Controller
         if($simpan){
             return redirect('/presensi/izin')->with(['success'=>'Data Berhasil dikirim']);
         } else{
-            return redirect('/presensi/izin')->with(['error'=>'Data Gagal dikirim']);
+            return redirect('/presensi/izin')->with(['warning'=>'Data Gagal dikirim']);
         }
 
     }

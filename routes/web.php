@@ -116,4 +116,8 @@ Route::middleware(['auth:user'])->group(function () {
     Route:: get('/konfigurasi/jamkelas',[KonfigurasiController::class, 'jamkelas']);
     Route:: get('/konfigurasi/jamkelas/create',[KonfigurasiController::class, 'createjamkelas']);
     Route:: post('/konfigurasi/jamkelas/store',[KonfigurasiController::class, 'storejamkelas']);
+    Route:: get('/konfigurasi/jamkelas/{kode_js_kelas}/edit',[KonfigurasiController::class, 'editjamkelas']);
+    Route:: post('/konfigurasi/jamkelas/{kode_js_kelas}/update',[KonfigurasiController::class, 'updatejamkelas']);
+    Route:: get('/konfigurasi/jamkelas/{kode_js_kelas}/delete',[KonfigurasiController::class, 'deletejamkelas']);
+
 });

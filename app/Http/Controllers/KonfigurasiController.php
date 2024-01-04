@@ -200,4 +200,47 @@ class KonfigurasiController extends Controller
         }
 
     }
+
+    public function editjamkelas($kode_js_kelas){
+        $jamsekolah = DB::table('jam_sekolah')->orderBy('nama_jam_sekolah')->get();
+        $sesi =DB::table('kegiatan')->get();
+        $kelas =DB::table('tabelkelas')->get();
+        $jamkelas =DB::table('konfigurasi_jam_kelas')->where('kode_js_kelas',$kode_js_kelas)->first();
+        $jamkelas_detail=DB::table('konfigurasi_jam_kelas_detail')->where('kode_js_kelas',$kode_js_kelas)->get();
+        return view('konfigurasi.editjamkelas', compact('jamsekolah', 'sesi', 'kelas','jamkelas','jamkelas_detail'));
+    }
+
+    public function updatejamkelas($kode_js_kelas, Request $request){
+        $hari = $request -> hari;
+        $kode_jam_sekolah = $request -> kode_jam_sekolah;
+
+        DB::beginTransaction();
+        try{
+            //hapus data dulu
+            DB::table('konfigurasi_jam_kelas_detail')->where('kode_js_kelas',$kode_js_kelas)->delete();
+            for($i=0; $i<count($hari); $i++){
+                $data[]=[
+                    'kode_js_kelas' => $kode_js_kelas,
+                    'hari' => $hari[$i],
+                    'kode_jam_sekolah' => $kode_jam_sekolah[$i]
+                ];
+            }
+            Setjamkelas::insert($data);
+            DB::commit();
+            return redirect('/konfigurasi/jamkelas')->with(['success'=>'Data Berhasil Disimpan !']);
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect('/konfigurasi/jamkelas')->with(['warning'=>'Data Gagal Disimpan !']);
+        }
+
+    }
+
+    public function deletejamkelas($kode_js_kelas){
+        try{
+            DB::table('konfigurasi_jam_kelas')->where('kode_js_kelas', $kode_js_kelas)->delete();
+            return Redirect::back()->with(['success'=> 'Data Berhasil Dihapus']);
+        } catch(\Exception $e){
+            return Redirect::back()->with(['warning'=> 'Data Gagal Dihapus']);
+        }
+    }
 }
